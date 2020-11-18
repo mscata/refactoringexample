@@ -3,22 +3,22 @@ import java.util.Scanner;
 
 public class Game {
     Scanner scan = new Scanner(System.in);
-    Die dice1 = new Die();
-    Die dice2 = new Die();
+    Die firstDie = new Die();
+    Die secondDie = new Die();
     int score;
 
     public void shoot() {
-        dice1.roll();
-        dice2.roll();
+        firstDie.roll();
+        secondDie.roll();
     }
 
     public void calculateScore() {
-        score = dice1.getFaceValue() + dice2.getFaceValue();
+        score = firstDie.getFaceValue() + secondDie.getFaceValue();
     }
 
     public void displayDetails() {
-        System.out.println("Dice 1: " + dice1.getFaceValue());
-        System.out.println("Dice 2: " + dice2.getFaceValue());
+        System.out.println("Dice 1: " + firstDie.getFaceValue());
+        System.out.println("Dice 2: " + secondDie.getFaceValue());
         System.out.println("Score is: " + score);
     }
 
@@ -31,11 +31,11 @@ public class Game {
                 System.out.println("Sorry, this was a losing throw.");
             }
             else {
-                System.out.print("\nDraw, you get another try. Type 1 to thow again or 2 to quit: ");
+                System.out.print("\nDraw, you get another try. Type 1 to throw again or 2 to quit: ");
                 int tryAgain = scan.nextInt();
 
                 while (tryAgain != 1 && tryAgain !=2) {
-                    System.out.print("Incorrect choice, chose 1 or 2: ");
+                    System.out.print("Incorrect choice, choose 1 or 2: ");
                     tryAgain = scan.nextInt();
                 }
                 if (tryAgain == 1) {
