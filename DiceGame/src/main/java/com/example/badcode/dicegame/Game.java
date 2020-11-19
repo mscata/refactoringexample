@@ -1,3 +1,5 @@
+package com.example.badcode.dicegame;
+
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
