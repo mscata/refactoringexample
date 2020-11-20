@@ -9,6 +9,13 @@ public class Game {
     Die secondDie = new Die();
     int score;
 
+    public Game() {}
+
+    public Game(Die firstDie, Die secondDie) {
+        this.firstDie = firstDie;
+        this.secondDie = secondDie;
+    }
+
     public void shoot() {
         firstDie.roll();
         secondDie.roll();
@@ -44,9 +51,9 @@ public class Game {
                     System.out.println();
                     playAgain();
                 }
-                else if (tryAgain == 2) {
+                else {
                     System.out.println("\nThank you for playing.");
-                    System.exit(0);
+//                    System.exit(0); // *** THIS IS PARTICULARLY BAD ***
                 }
             }
         }
