@@ -93,6 +93,8 @@
                 <artifactId>maven-surefire-plugin</artifactId>
                 <version>${maven-surefire.version}</version>
                 <configuration>
+                    <forkMode>once</forkMode>
+                    <testFailureIgnore>false</testFailureIgnore>
                     <systemPropertyVariables>
                         <jacoco-agent.destfile>${project.build.directory}/jacoco.exec</jacoco-agent.destfile>
                         <user.timezone>UTC</user.timezone>
@@ -140,6 +142,7 @@
                         <outputFormat>XML</outputFormat>
                         <outputFormat>HTML</outputFormat>
                     </outputFormats>
+                    <timestampedReports>false</timestampedReports>
                     <verbose>false</verbose>
                     <exportLineCoverage>true</exportLineCoverage>
                 </configuration>
@@ -147,6 +150,7 @@
                     <execution>
                         <id>mutation-tests</id>
                         <phase>test</phase>
+                        <inherited>true</inherited>
                         <goals>
                             <goal>mutationCoverage</goal>
                         </goals>
