@@ -8,10 +8,15 @@ public class Game {
     Die firstDie = new Die();
     Die secondDie = new Die();
     int score;
+    GameOutcomeDecider decider = new GameOutcomeDecider();
 
-    public Game() {}
+    public Game() {
+        decider.addHandler(new ScoreHandler(Outcome.WIN, 7, 11));
+        decider.addHandler(new ScoreHandler(Outcome.LOSE, 2, 3, 12));
+    }
 
     public Game(Die firstDie, Die secondDie) {
+        this();
         this.firstDie = firstDie;
         this.secondDie = secondDie;
     }
@@ -32,33 +37,28 @@ public class Game {
     }
 
     public void decideOutcome() {
-        try {
-            if (score == 7 || score == 11) {
+        switch (decider.apply(this.score)) {
+            case WIN:
                 System.out.println("Congrats, this was a winning throw.");
-            }
-            else if (score == 2 || score == 3 || score == 12) {
+                break;
+            case LOSE:
                 System.out.println("Sorry, this was a losing throw.");
-            }
-            else {
+                break;
+            default:
                 System.out.print("\nDraw, you get another try. Type 1 to throw again or 2 to quit: ");
                 int tryAgain = scan.nextInt();
 
-                while (tryAgain != 1 && tryAgain !=2) {
+                while (tryAgain != 1 && tryAgain != 2) {
                     System.out.print("Incorrect choice, choose 1 or 2: ");
                     tryAgain = scan.nextInt();
                 }
                 if (tryAgain == 1) {
                     System.out.println();
                     playAgain();
-                }
-                else {
+                } else {
                     System.out.println("\nThank you for playing.");
 //                    System.exit(0); // *** THIS IS PARTICULARLY BAD ***
                 }
-            }
-        }
-        catch (InputMismatchException ex) {
-            System.err.println("Wrong data type. Try again");
         }
     }
 

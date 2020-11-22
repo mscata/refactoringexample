@@ -26,3 +26,6 @@ As it turns out, we can. We need to "cheat the `System`", but just a little.
 However, as we will see later, this is only a temporary testing technique that 
 we use solely for the purposes of capturing and testing the current behaviour.
 
+Once we have enough confidence that our test cover the main functionality,
+we can do some proper refactoring knowing that we won't affect the original
+intention of the program, and users won't see any difference.
