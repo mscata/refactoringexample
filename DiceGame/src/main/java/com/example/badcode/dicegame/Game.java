@@ -8,6 +8,20 @@ import java.util.Scanner;
 import java.util.function.Supplier;
 
 public class Game {
+    private class GameOverChecker {
+        public GameResult isWinningThrow(final int score) {
+            if (score == 7 || score == 11) {
+                return GameResult.WIN;
+            }
+            else if (score == 2 || score == 3 || score == 12) {
+                return GameResult.LOSE;
+            }
+            return GameResult.NO_RESULT;
+        }
+    }
+
+    private final GameOverChecker gameOverChecker = new GameOverChecker();
+
     private class SequenceGenerator implements Supplier<Integer> {
 
         private final int[] array;
@@ -40,28 +54,28 @@ public class Game {
     private final Scanner scan = new Scanner(System.in);
     private final Rollable firstDie = new GeneratorDie(new SequenceGenerator(new int[]{1,2,3,4,5,6,2,3,4,1}));
     private final Rollable secondDie = new GeneratorDie(new SequenceGenerator(new int[]{1,4,1,2,6,3,1,2,4,2}));
-    int score;
 
     public Tuple2<Integer,Integer> shoot() {
         return new Tuple2<>(firstDie.roll(), secondDie.roll());
     }
 
-    public void calculateScore(final Tuple2<Integer,Integer> rolls) {
-        score = rolls._1 + rolls._2;
+    public int calculateScore(final Tuple2<Integer,Integer> rolls) {
+        return rolls._1 + rolls._2;
     }
 
-    public void displayDetails(final Tuple2<Integer,Integer> rolls) {
+    public void displayDetails(final Tuple2<Integer,Integer> rolls, final int score) {
         System.out.println("Dice 1: " + rolls._1);
         System.out.println("Dice 2: " + rolls._2);
         System.out.println("Score is: " + score);
     }
 
-    public void decideOutcome() {
+    public void decideOutcome(final int score) {
         try {
-            if (score == 7 || score == 11) {
+            final GameResult gameResult = gameOverChecker.isWinningThrow(score);
+            if (gameResult==GameResult.WIN) {
                 System.out.println("Congrats, this was a winning throw.");
             }
-            else if (score == 2 || score == 3 || score == 12) {
+            else if (gameResult==GameResult.LOSE) {
                 System.out.println("Sorry, this was a losing throw.");
             }
             else {
@@ -89,9 +103,9 @@ public class Game {
 
     public void playAgain() {
         final Tuple2<Integer, Integer> rolls = shoot();
-        calculateScore(rolls);
-        displayDetails(rolls);
-        decideOutcome();
+        final int score = calculateScore(rolls);
+        displayDetails(rolls, score);
+        decideOutcome(score);
     }
 
     public static void main(final String[] args) {
@@ -101,9 +115,9 @@ public class Game {
 
         do {
             final Tuple2<Integer, Integer> rolls = craps.shoot();
-            craps.calculateScore(rolls);
-            craps.displayDetails(rolls);
-            craps.decideOutcome();
+            final int score = craps.calculateScore(rolls);
+            craps.displayDetails(rolls, score);
+            craps.decideOutcome(score);
             System.out.print("\nPlay again? yes or no: ");
             quit = scan.nextLine();
             while (!quit.equalsIgnoreCase("no") && !quit.equalsIgnoreCase("yes")) {
