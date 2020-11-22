@@ -122,13 +122,14 @@
                 <groupId>org.pitest</groupId>
                 <artifactId>pitest-maven</artifactId>
                 <version>${pitest-maven.version}</version>
+                <dependencies>
+                    <dependency>
+                        <groupId>org.pitest</groupId>
+                        <artifactId>pitest-junit5-plugin</artifactId>
+                        <version>0.12</version>
+                    </dependency>
+                </dependencies>
                 <configuration>
-                    <targetClasses>
-                        <param>com.example.badcode.dicegame.*</param>
-                    </targetClasses>
-                    <targetTests>
-                        <param>com.example.badcode.dicegame.*</param>
-                    </targetTests>
                     <mutators>
                         <mutator>INCREMENTS</mutator>
                         <mutator>INVERT_NEGS</mutator>
