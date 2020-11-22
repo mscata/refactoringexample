@@ -1,26 +1,58 @@
 package com.example.badcode.dicegame;
 
+import io.vavr.Tuple2;
+
 import java.util.InputMismatchException;
+import java.util.Random;
 import java.util.Scanner;
+import java.util.function.Supplier;
 
 public class Game {
-    Scanner scan = new Scanner(System.in);
-    Die firstDie = new Die();
-    Die secondDie = new Die();
+    private class SequenceGenerator implements Supplier<Integer> {
+
+        private final int[] array;
+        private int counter;
+
+        private SequenceGenerator(final int[] array) {
+            this.array = array;
+            this.counter = 0;
+        }
+
+        @Override
+        public Integer get() {
+            return array[counter++ % array.length];
+        }
+    }
+
+    private class RandomGenerator implements Supplier<Integer> {
+        private final Random r;
+
+        private RandomGenerator(final Random r) {
+            this.r=r;
+        }
+
+        @Override
+        public Integer get() {
+            return 1+r.nextInt(6);
+        }
+    }
+
+    private final Scanner scan = new Scanner(System.in);
+    private final Rollable firstDie = new GeneratorDie(new SequenceGenerator(new int[]{1,2,3,4,5,6,2,3,4,1}));
+    private final Rollable secondDie = new GeneratorDie(new SequenceGenerator(new int[]{1,4,1,2,6,3,1,2,4,2}));
     int score;
 
-    public void shoot() {
-        firstDie.roll();
-        secondDie.roll();
+    public Tuple2<Integer,Integer> shoot() {
+        return new Tuple2<>(firstDie.roll(), secondDie.roll());
     }
 
-    public void calculateScore() {
-        score = firstDie.getFaceValue() + secondDie.getFaceValue();
+    public void calculateScore(final Tuple2<Integer,Integer> rolls) {
+        score = rolls._1 + rolls._2;
     }
 
-    public void displayDetails() {
-        System.out.println("Dice 1: " + firstDie.getFaceValue());
-        System.out.println("Dice 2: " + secondDie.getFaceValue());
+    public void displayDetails(final Tuple2<Integer,Integer> rolls) {
+        System.out.println("Dice 1: " + rolls._1);
+        System.out.println("Dice 2: " + rolls._2);
         System.out.println("Score is: " + score);
     }
 
@@ -50,28 +82,27 @@ public class Game {
                 }
             }
         }
-        catch (InputMismatchException ex) {
+        catch (final InputMismatchException ex) {
             System.err.println("Wrong data type. Try again");
         }
     }
 
     public void playAgain() {
-        shoot();
-        calculateScore();
-        displayDetails();
+        final Tuple2<Integer, Integer> rolls = shoot();
+        calculateScore(rolls);
+        displayDetails(rolls);
         decideOutcome();
     }
 
-
-    public static void main(String[] args) {
-        Game craps = new Game();
-        Scanner scan = new Scanner(System.in);
+    public static void main(final String[] args) {
+        final Game craps = new Game();
+        final Scanner scan = new Scanner(System.in);
         String quit;
 
         do {
-            craps.shoot();
-            craps.calculateScore();
-            craps.displayDetails();
+            final Tuple2<Integer, Integer> rolls = craps.shoot();
+            craps.calculateScore(rolls);
+            craps.displayDetails(rolls);
             craps.decideOutcome();
             System.out.print("\nPlay again? yes or no: ");
             quit = scan.nextLine();

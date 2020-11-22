@@ -2,12 +2,13 @@ package com.example.badcode.dicegame;
 
 import java.util.Random;
 
-public class Die {
+public class Die implements Rollable {
     int faceValue;
 
-    public void roll() {
-        Random rand = new Random();
+    public int roll() {
+        final Random rand = new Random();
         faceValue = rand.nextInt(6) + 1;
+        return faceValue;
     }
 
     public int getFaceValue() {
