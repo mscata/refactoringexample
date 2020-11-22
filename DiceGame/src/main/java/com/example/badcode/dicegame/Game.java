@@ -88,7 +88,7 @@ public class Game {
                 }
                 if (tryAgain == 1) {
                     System.out.println();
-                    playAgain();
+                    play();
                 }
                 else if (tryAgain == 2) {
                     System.out.println("\nThank you for playing.");
@@ -101,7 +101,7 @@ public class Game {
         }
     }
 
-    public void playAgain() {
+    public void play() {
         final Tuple2<Integer, Integer> rolls = shoot();
         final int score = calculateScore(rolls);
         displayDetails(rolls, score);
@@ -114,10 +114,7 @@ public class Game {
         String quit;
 
         do {
-            final Tuple2<Integer, Integer> rolls = craps.shoot();
-            final int score = craps.calculateScore(rolls);
-            craps.displayDetails(rolls, score);
-            craps.decideOutcome(score);
+            craps.play();
             System.out.print("\nPlay again? yes or no: ");
             quit = scan.nextLine();
             while (!quit.equalsIgnoreCase("no") && !quit.equalsIgnoreCase("yes")) {
