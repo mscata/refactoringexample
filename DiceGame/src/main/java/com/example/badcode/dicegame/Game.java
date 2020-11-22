@@ -115,15 +115,23 @@ public class Game {
 
         do {
             craps.play();
-            System.out.print("\nPlay again? yes or no: ");
-            quit = scan.nextLine();
-            while (!quit.equalsIgnoreCase("no") && !quit.equalsIgnoreCase("yes")) {
-                System.out.print("\nPlay again? yes or no: ");
-                quit = scan.nextLine();
-            }
+            quit = getPlayAgainDecision(scan);
             System.out.println();
         } while (!quit.equalsIgnoreCase("no"));
         scan.close();
         System.out.println("Thank you for playing.");
+    }
+
+    private static String getPlayAgainDecision(final Scanner scan) {
+        String quit = checkDecision(scan);
+        while (!quit.equalsIgnoreCase("no") && !quit.equalsIgnoreCase("yes")) {
+            quit = checkDecision(scan);
+        }
+        return quit;
+    }
+
+    private static String checkDecision(final Scanner scan) {
+        System.out.print("\nPlay again? yes or no: ");
+        return scan.nextLine();
     }
 }
