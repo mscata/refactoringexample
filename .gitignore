@@ -1,2 +1,14 @@
-/.idea/
+.DS_Store
+
+.idea/
+*.iml
+*.iws
+
+.classpath
+.project
+.settings/
+
+log/
+target/
+
 out/
