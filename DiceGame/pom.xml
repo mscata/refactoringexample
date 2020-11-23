@@ -22,20 +22,13 @@
         <hamcrest.version>2.1</hamcrest.version>
         <jacoco.version>0.8.6</jacoco.version>
         <junit.version>5.7.0</junit.version>
-        <mockito.version>3.6.0</mockito.version>
-        <vavr.version>1.0.0-alpha-3</vavr.version>
-
         <maven-compiler-plugin.version>3.8.1</maven-compiler-plugin.version>
         <maven-surefire.version>3.0.0-M5</maven-surefire.version>
+        <mockito.version>3.6.0</mockito.version>
         <pitest-maven.version>1.5.2</pitest-maven.version>
     </properties>
 
     <dependencies>
-        <dependency>
-            <groupId>io.vavr</groupId>
-            <artifactId>vavr</artifactId>
-            <version>${vavr.version}</version>
-        </dependency>
         <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter-engine</artifactId>
