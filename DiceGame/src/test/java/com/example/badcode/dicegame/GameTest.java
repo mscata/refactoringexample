@@ -70,48 +70,8 @@ public class GameTest {
         assertThat(testOut.toString(), containsString("Score is: 3"));
     }
 
-    @Test
-    public void shouldDecideWinningScore() {
-        when(firstDie.getFaceValue()).thenReturn(3);
-        when(secondDie.getFaceValue()).thenReturn(4);
+    //TODO: 1 - Add a test to check a winning score retruns the right result
+    //TODO: 2 - Add a test to check a losingg score retruns the right result
+    //TODO(stretch goal): 3 - Add a test to check the logic to play again works as expected on a draw
 
-        game.shoot();
-        game.calculateScore();
-        game.displayDetails();
-        game.decideOutcome();
-
-        assertThat(testOut.toString(), containsString("Congrats, this was a winning throw."));
-    }
-
-    @Test
-    public void shouldDecideLosingScore() {
-        when(firstDie.getFaceValue()).thenReturn(1);
-        when(secondDie.getFaceValue()).thenReturn(2);
-
-        game.shoot();
-        game.calculateScore();
-        game.displayDetails();
-        game.decideOutcome();
-
-        assertThat(testOut.toString(), containsString("Sorry, this was a losing throw."));
-    }
-
-    @Test
-    public void shouldDecideDrawScoreAndChooseWrongOptionAndPlayAgainOnce() {
-        when(firstDie.getFaceValue()).thenReturn(2);
-        when(secondDie.getFaceValue()).thenReturn(3);
-
-        userChoice("9\n1\n2");
-        game = new Game(firstDie, secondDie);
-        game.shoot();
-        game.calculateScore();
-        game.displayDetails();
-        game.decideOutcome();
-
-        assertThat(testOut.toString(), containsString("Incorrect choice, choose 1 or 2:"));
-        assertThat(testOut.toString(), containsString("Draw, you get another try. Type 1 to throw again or 2 to quit:"));
-        assertThat(testOut.toString(), containsString("Thank you for playing."));
-        verify(firstDie, times(4)).getFaceValue();
-        verify(secondDie, times(4)).getFaceValue();
-    }
 }
