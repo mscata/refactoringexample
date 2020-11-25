@@ -31,6 +31,8 @@ public class Game {
         System.out.println("Score is: " + score);
     }
 
+    //TODO Now we have tests, the next task is to refactor the logic in decideOuctome which breaks the Single Responsibility Principle (SRP)
+    //TODO Can you find a way to simplify the below so it is easier to maintain and extend
     public void decideOutcome() {
         try {
             if (score == 7 || score == 11) {
