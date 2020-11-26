@@ -71,7 +71,7 @@ public class GameTest {
     }
 
     //TODO: 1 - Add a test to check a winning score shows the right result
-    //TODO: 2 - Add a test to check a losingg score shows the right result
+    //TODO: 2 - Add a test to check a losing score shows the right result
     //TODO(stretch goal): 3 - Add a test to check the logic to play again works as expected on a draw
 
 }
